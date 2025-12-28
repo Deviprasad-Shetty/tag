@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed | ChapterOne</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXX'); <!-- REPLACE WITH YOUR GTM ID -->
+  </script>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <h1 class="logo">ChapterOne</h1>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="confirmation-container">
+      <h2>Thank You for Your Order! 📚</h2>
+      <p>Your order has been confirmed and will be shipped soon.</p>
+      
+      <div class="order-summary">
+        <h3>Order #BK2024-1001</h3>
+        <p><strong>Date:</strong> <span id="order-date">June 15, 2024</span></p>
+        <p><strong>Total:</strong> <span id="order-total">$59.99</span></p>
+        <ul id="order-items">
+          <li>1 × The Great Gatsby - $19.99</li>
+          <li>1 × Atomic Habits - $24.99</li>
+          <li>1 × Shipping - $5.00</li>
+        </ul>
+      </div>
+
+      <a href="index.html" class="btn btn-primary">Back to Home</a>
+    </div>
+  </main>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    const items = [
+      { item_id: 'BK001', item_name: 'The Great Gatsby', price: 19.99, quantity: 1 },
+      { item_id: 'BK002', item_name: 'Atomic Habits', price: 24.99, quantity: 1 }
+    ];
+    dataLayer.push({
+      event: 'purchase',
+      ecommerce: {
+        transaction_id: 'BK2024-1001',
+        value: 59.99,
+        tax: 4.80,
+        shipping: 5.00,
+        currency: 'USD',
+        items: JSON.stringify(items) // Stringified items
+      }
+    });
+  </script>
+</body>
+</html>
