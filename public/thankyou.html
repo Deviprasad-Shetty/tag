@@ -38,31 +38,61 @@
 
   <script src="/tag/public/assets/js/script.js"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    const order = {
-      id: "BK12345",
-      total: 49.99,
-      items: [
-        { id: "1001", name: "Atomic Habits", price: 24.99 },
-        { id: "1002", name: "Deep Work", price: 19.99 }
-      ]
-    };
-    dataLayer.push({
-      event: "purchase",
-      ecommerce: {
-        transaction_id: order.id,
-        value: order.total,
-        items: order.items.map(item => ({
-          item_id: item.id,
-          item_name: item.name,
-          price: item.price,
-          quantity: 1
-        }))
-      }
-    });
+    // Load Axios if not already loaded
+    if (typeof axios === 'undefined') {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js';
+      document.head.appendChild(script);
+    }
 
-    // 2. Direct API Call (for your backend analytics)
-    trackEvent("purchase", order);
+    // Track purchase function
+    const trackPurchase = async () => {
+      const order = {
+        id: "BK12345",
+        total: 49.99,
+        items: [
+          { id: "1001", name: "Atomic Habits", price: 24.99 },
+          { id: "1002", name: "Deep Work", price: 19.99 }
+        ]
+      };
+
+      // Data Layer for GTM
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({
+        event: "purchase",
+        ecommerce: {
+          transaction_id: order.id,
+          value: order.total,
+          items: order.items
+        }
+      });
+
+      // API Call with CORS headers
+      try {
+        const response = await axios.post(
+          'https://trackingservice-401966967468.us-east1.run.app',
+          order,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            }
+          }
+        );
+        console.log('API Response:', response.data);
+      } catch (error) {
+        console.error('Tracking failed:', error);
+      }
+    };
+
+    // Wait for Axios to load if needed
+    if (typeof axios !== 'undefined') {
+      trackPurchase();
+    } else {
+      document.addEventListener('axiosReady', trackPurchase);
+    }
+  </script>
   </script>
 </body>
+
 </html>

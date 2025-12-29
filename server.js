@@ -17,9 +17,9 @@ let orders = [
 // Scheduled job (every 10 minutes)
 cron.schedule('*/10 * * * *', async () => {
   console.log("[CRON JOB] Checking for pending orders...");
-  
+
   const pendingOrders = orders.filter(order => order.status === 'pending');
-  
+
   if (pendingOrders.length === 0) {
     console.log("No pending orders found.");
     return;
@@ -32,6 +32,7 @@ cron.schedule('*/10 * * * *', async () => {
         {
           headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json'
             // Optionally add auth headers
             // 'Authorization': 'Bearer YOUR_TOKEN'
           }
