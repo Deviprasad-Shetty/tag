@@ -28,7 +28,15 @@ cron.schedule('*/10 * * * *', async () => {
   // Send each order to the external API
   for (const order of pendingOrders) {
     try {
-      const response = await axios.post('https://trackingservice-401966967468.us-east1.run.app', order);
+      const response = await axios.post('https://trackingservice-401966967468.us-east1.run.app', order,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            // Optionally add auth headers
+            // 'Authorization': 'Bearer YOUR_TOKEN'
+          }
+        }
+      );
       console.log(`Order ${order.id} processed:`, response.data);
       order.status = 'completed';
     } catch (error) {
