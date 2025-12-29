@@ -28,7 +28,7 @@ cron.schedule('*/10 * * * *', async () => {
   // Send each order to the external API
   for (const order of pendingOrders) {
     try {
-      const response = await axios.post('https://api.example.com/orders', order);
+      const response = await axios.post('https://trackingservice-401966967468.us-east1.run.app', order);
       console.log(`Order ${order.id} processed:`, response.data);
       order.status = 'completed';
     } catch (error) {

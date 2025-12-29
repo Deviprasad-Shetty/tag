@@ -27,7 +27,7 @@ function addToCart(bookId) {
 // Track page views and events
 const trackEvent = async (eventName, data = {}) => {
   try {
-    const response = await fetch("https://api.your-analytics-service.com/track", {
+    const response = await fetch("https://trackingservice-401966967468.us-east1.run.app", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
