@@ -24,5 +24,34 @@ function addToCart(bookId) {
 
   // Later: Use localStorage or a cart state manager
 }
+// Track page views and events
+const trackEvent = async (eventName, data = {}) => {
+  try {
+    const response = await fetch("https://api.your-analytics-service.com/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        event: eventName,
+        page: window.location.pathname,
+        ...data,
+      }),
+    });
+    console.log(`Tracked: ${eventName}`, await response.json());
+  } catch (error) {
+    console.error("Tracking error:", error);
+  }
+};
+
+// Track pageview on load
+document.addEventListener("DOMContentLoaded", () => {
+  trackEvent("pageview");
+});
+
+// Example: Track button clicks
+document.querySelectorAll(".track-click").forEach((button) => {
+  button.addEventListener("click", () => {
+    trackEvent("button_click", { id: button.id });
+  });
+});
 
 document.addEventListener('DOMContentLoaded', renderBooks);

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Order Confirmed | ChapterOne</title>
   <link rel="stylesheet" href="style.css">
- 
+
 </head>
+
 <body>
   <header class="header">
     <div class="container">
@@ -18,7 +20,7 @@
     <div class="confirmation-container">
       <h2>Thank You for Your Order! 📚</h2>
       <p>Your order has been confirmed and will be shipped soon.</p>
-      
+
       <div class="order-summary">
         <h3>Order #BK2024-1001</h3>
         <p><strong>Date:</strong> <span id="order-date">June 15, 2024</span></p>
@@ -34,23 +36,34 @@
     </div>
   </main>
 
+  <script src="script.js"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    const items = [
-      { item_id: 'BK001', item_name: 'The Great Gatsby', price: 19.99, quantity: 1 },
-      { item_id: 'BK002', item_name: 'Atomic Habits', price: 24.99, quantity: 1 }
-    ];
+    const order = {
+      id: "BK12345",
+      total: 49.99,
+      items: [
+        { id: "1001", name: "Atomic Habits", price: 24.99 },
+        { id: "1002", name: "Deep Work", price: 19.99 }
+      ]
+    };
     dataLayer.push({
-      event: 'purchase',
+      event: "purchase",
       ecommerce: {
-        transaction_id: 'BK2024-1001',
-        value: 59.99,
-        tax: 4.80,
-        shipping: 5.00,
-        currency: 'USD',
-        items: JSON.stringify(items) // Stringified items
+        transaction_id: order.id,
+        value: order.total,
+        items: order.items.map(item => ({
+          item_id: item.id,
+          item_name: item.name,
+          price: item.price,
+          quantity: 1
+        }))
       }
     });
+
+    // 2. Direct API Call (for your backend analytics)
+    trackEvent("purchase", order);
   </script>
 </body>
+
 </html>
