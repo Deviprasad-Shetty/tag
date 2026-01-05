@@ -10,9 +10,31 @@ const PORT = 3000;
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Mock database
-let orders = [
-  { id: 'BK12345', total: 49.99, status: 'pending' }
-];
+let orders = {
+        id: "BK12345",
+        total: 49.99,
+        status: 'pending',
+        items: [
+          {
+            item_id: "1001",
+            item_name: "Atomic Habits",
+            price: 24.99,
+            item_brand: "Rakuta",
+            item_category: "Books",
+            item_variant: "English Literature",
+            quantity: 1
+          },
+          {
+            item_id: "1002",
+            item_name: "Deep Work",
+            price: 19.99,
+            item_brand: "Rakuta",
+            item_category: "Books",
+            item_variant: "English Literature",
+            quantity: 1
+          }
+        ]
+      };
 
 // Scheduled job (every 10 minutes)
 cron.schedule('*/10 * * * *', async () => {
@@ -28,7 +50,7 @@ cron.schedule('*/10 * * * *', async () => {
   // Send each order to the external API
   for (const order of pendingOrders) {
     try {
-      const response = await axios.post('https://trackingservice-401966967468.us-east1.run.app', order,
+      const response = await axios.post('https://trackingservice-47621202522.us-west1.run.app', order,
         {
           headers: {
             'Content-Type': 'application/json',

@@ -51,8 +51,24 @@
         id: "BK12345",
         total: 49.99,
         items: [
-          { id: "1001", name: "Atomic Habits", price: 24.99 },
-          { id: "1002", name: "Deep Work", price: 19.99 }
+          {
+            item_id: "1001",
+            item_name: "Atomic Habits",
+            price: 24.99,
+            item_brand: "Rakuta",
+            item_category: "Books",
+            item_variant: "English Literature",
+            quantity: 1
+          },
+          {
+            item_id: "1002",
+            item_name: "Deep Work",
+            price: 19.99,
+            item_brand: "Rakuta",
+            item_category: "Books",
+            item_variant: "English Literature",
+            quantity: 1
+          }
         ]
       };
 
@@ -60,9 +76,14 @@
       window.dataLayer = window.dataLayer || [];
       dataLayer.push({
         event: "purchase",
+        type: "spi",
         ecommerce: {
           transaction_id: order.id,
+          affiliation: "ChapterOne Online Store",
           value: order.total,
+          tax: 10.0,
+          shipping: 5.0,
+          currency: "USD",
           items: order.items
         }
       });
@@ -70,7 +91,7 @@
       // API Call with CORS headers
       try {
         const response = await axios.post(
-          'https://trackingservice-401966967468.us-east1.run.app',
+          'https://trackingservice-47621202522.us-west1.run.app',
           order,
           {
             headers: {
