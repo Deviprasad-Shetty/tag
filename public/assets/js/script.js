@@ -3,6 +3,32 @@ const books = [
   { id: 'BK001', title: "The Great Gatsby", author: "F. Scott Fitzgerald", price: 19.99, category: 'Classic' },
   { id: 'BK002', title: "Atomic Habits", author: "James Clear", price: 24.99, category: 'Self-Help' },
 ];
+let orders = {
+        id: "BK12345",
+        total: 49.99,
+        status: 'pending',
+        items: [
+          {
+            item_id: "1001",
+            item_name: "Atomic Habits",
+            price: 24.99,
+            item_brand: "Rakuta",
+            item_category: "Books",
+            item_variant: "English Literature",
+            quantity: 1
+          },
+          {
+            item_id: "1002",
+            item_name: "Deep Work",
+            price: 19.99,
+            item_brand: "Rakuta",
+            item_category: "Books",
+            item_variant: "English Literature",
+            quantity: 1
+          }
+        ]
+      };
+
 
 // Render books to the homepage
 function renderBooks() {
@@ -31,9 +57,9 @@ const trackEvent = async (eventName, data = {}) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        event: eventName,
+        event: "purchase",
         page: window.location.pathname,
-        ...data,
+        orders,
       }),
     });
     console.log(`Tracked: ${eventName}`, await response.json());
