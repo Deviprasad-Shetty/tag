@@ -50,7 +50,7 @@ cron.schedule('*/10 * * * *', async () => {
   // Send each order to the external API
   for (const order of pendingOrders) {
     try {
-      const response = await axios.post('https://trackingservice-47621202522.us-west1.run.app', order,
+      const response = await axios.post('https://trackingservice-588527070456.us-west1.run.app', order,
         {
           headers: {
             'Content-Type': 'application/json',
